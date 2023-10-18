@@ -1,7 +1,12 @@
+'use client';
+
+import { useSelector } from 'react-redux';
 /* eslint-disable @next/next/no-img-element */
-import styles from "./page.module.css";
+import styles from './page.module.css';
 
 export default function Home() {
+  const { token } = useSelector((state: any) => state.login);
+  console.log(localStorage, sessionStorage, 'TOKEN', token);
   return (
     <>
       <main>
@@ -20,8 +25,8 @@ export default function Home() {
           <h2 className={styles.srOnly}>Features</h2>
           <div className={styles.featureItem}>
             <img
-              src='/icon-chat.png'
-              alt='Chat Icon'
+              src="/icon-chat.png"
+              alt="Chat Icon"
               className={styles.featureIcon}
             />
             <h3 className={styles.featureItemTitle}>You are our #1 priority</h3>
@@ -32,8 +37,8 @@ export default function Home() {
           </div>
           <div className={styles.featureItem}>
             <img
-              src='/icon-money.png'
-              alt='Chat Icon'
+              src="/icon-money.png"
+              alt="Chat Icon"
               className={styles.featureIcon}
             />
             <h3 className={styles.featureItemTitle}>
@@ -45,8 +50,8 @@ export default function Home() {
           </div>
           <div className={styles.featureItem}>
             <img
-              src='/icon-security.png'
-              alt='Chat Icon'
+              src="/icon-security.png"
+              alt="Chat Icon"
               className={styles.featureIcon}
             />
             <h3 className={styles.featureItemTitle}>Security you can trust</h3>
