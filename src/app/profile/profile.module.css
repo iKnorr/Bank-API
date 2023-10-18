@@ -1,0 +1,44 @@
+.editNameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editNameInputWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.editNameInputWrapper input {
+  margin-top: 20px;
+  height: 40px;
+  width: 200px;
+  padding: 5px 10px;
+  border: solid white 1px;
+  border-radius: 3px;
+  font-size: 18px;
+}
+
+.editNameButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.editNameButtonWrapper button {
+  width: 140px;
+  height: 38px;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: bold;
+  background-color: #00bc77;
+  border-color: #00bc77;
+}
+
+.errorText {
+  height: 20px;
+  margin: 5px 0;
+  color: rgb(255, 52, 52);
+}

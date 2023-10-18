@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './login.module.css';
 import { getUserProfile, loginUser } from '@/services/apiService';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,6 @@ import { useRouter } from 'next/navigation';
 import {
   SET_FIRST_NAME,
   SET_LAST_NAME,
-  SET_USER_ID,
 } from '../GlobalRedux/Features/User/userSlice';
 
 const LoginPage = () => {
@@ -22,7 +21,7 @@ const LoginPage = () => {
   const { email, password, token } = useSelector((state: any) => state.login);
   const [isRememberMe, setIsRememberMe] = useState<boolean>(false);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
     if (e.target.name === 'email') {
@@ -43,27 +42,32 @@ const LoginPage = () => {
       const JWTAuthToken = response?.data.body.token;
 
       if (response?.status === 200 && JWTAuthToken) {
-        const res = await getUserProfile(JWTAuthToken);
-        if (JWTAuthToken && isRememberMe) {
-          localStorage.setItem('token', JWTAuthToken);
-          dispatch(SET_TOKEN(localStorage.getItem('token')));
-        } else if (JWTAuthToken && !isRememberMe) {
-          sessionStorage.setItem('token', JWTAuthToken);
-          dispatch(SET_TOKEN(sessionStorage.getItem('token')));
-        } else {
-          console.log('Something went wrong');
-        }
+        try {
+          const res = await getUserProfile(JWTAuthToken);
+          if (res?.status === 200) {
+            const { firstName, lastName } = res?.data.body;
 
-        if (res?.status === 200) {
-          const { firstName, lastName, id } = res?.data.body;
+            if (JWTAuthToken && isRememberMe) {
+              localStorage.setItem('token', JWTAuthToken);
+              localStorage.setItem('userFirstName', firstName);
+              localStorage.setItem('userLastName', lastName);
+              dispatch(SET_TOKEN(localStorage.getItem('token')));
+            } else if (JWTAuthToken && !isRememberMe) {
+              sessionStorage.setItem('token', JWTAuthToken);
+              sessionStorage.setItem('userFirstName', firstName);
+              sessionStorage.setItem('userLastName', lastName);
+              dispatch(SET_TOKEN(sessionStorage.getItem('token')));
+            }
 
-          dispatch(SET_USER_ID(id));
-          dispatch(SET_FIRST_NAME(firstName));
-          dispatch(SET_LAST_NAME(lastName));
+            dispatch(SET_FIRST_NAME(firstName));
+            dispatch(SET_LAST_NAME(lastName));
 
-          router.push('/profile');
-        } else {
-          console.log(`${res?.status}: Auhtentication Error`);
+            router.push('/profile');
+          } else {
+            console.log(`${res?.status}: Authentication Error`);
+          }
+        } catch (error) {
+          console.log(error);
         }
       } else {
         console.log(`${response?.status}: ${response?.data.message}`);

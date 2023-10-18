@@ -28,6 +28,10 @@ export const NavBar = () => {
     e.preventDefault();
     localStorage.removeItem('token');
     sessionStorage.removeItem('token');
+    localStorage.removeItem('userFirstName');
+    sessionStorage.removeItem('userFirstName');
+    localStorage.removeItem('userLastName');
+    sessionStorage.removeItem('userLastName');
     dispatch(SET_TOKEN(''));
     dispatch(SET_PASSWORD(''));
     dispatch(SET_EMAIL(''));

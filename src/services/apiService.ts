@@ -49,3 +49,22 @@ export const getUserProfile = async (token: string) => {
     console.log(error);
   }
 };
+
+type UserName = {
+  firstName: string;
+  lastName: string;
+};
+
+export const updateUserName = async (data: UserName, token: string) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/user/profile`, data, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
