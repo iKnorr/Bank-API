@@ -1,6 +1,5 @@
 'use client';
 
-import { useSelector } from 'react-redux';
 /* eslint-disable @next/next/no-img-element */
 import styles from './page.module.css';
 

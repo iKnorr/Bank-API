@@ -49,8 +49,6 @@ const LoginPage = () => {
 
             if (JWTAuthToken && isRememberMe) {
               localStorage.setItem('token', JWTAuthToken);
-              // localStorage.setItem('userFirstName', firstName);
-              // localStorage.setItem('userLastName', lastName);
               dispatch(SET_TOKEN(localStorage.getItem('token')));
             } else {
               dispatch(SET_TOKEN(JWTAuthToken));

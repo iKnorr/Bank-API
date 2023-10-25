@@ -59,6 +59,12 @@ export const NavBar = () => {
     }
   }, [token]);
 
+  useEffect(() => {
+    if (!token) {
+      router.push('/');
+    }
+  }, [token]);
+
   return (
     <nav className={styles.mainNav}>
       <Link className={styles.mainNavLogo} href="/">
