@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './NavBar.module.css';
 import stylesPages from '../../app/page.module.css';
 import { useRouter } from 'next/navigation';
@@ -40,6 +40,16 @@ export const NavBar = () => {
 
     router.push('/');
   };
+
+  useEffect(() => {
+    const storedFirstName =
+      localStorage.getItem('userFirstName') ||
+      sessionStorage.getItem('userFirstName');
+
+    if (storedFirstName) {
+      dispatch(SET_FIRST_NAME(storedFirstName));
+    }
+  }, [dispatch]);
 
   return (
     <nav className={styles.mainNav}>
