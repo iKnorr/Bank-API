@@ -43,7 +43,7 @@ export const getUserProfile = async (token: string) => {
         },
       }
     );
-    console.log({ status, data });
+
     return { status, data };
   } catch (error) {
     console.log(error);

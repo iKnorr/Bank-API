@@ -7,7 +7,7 @@ export const loginSlice = createSlice({
   initialState: {
     email: '',
     password: '',
-    token: localStorage.getItem('token') || sessionStorage.getItem('token'),
+    token: localStorage.getItem('token'),
   },
   reducers: {
     SET_EMAIL: (state, action) => {

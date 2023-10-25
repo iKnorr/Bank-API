@@ -49,14 +49,11 @@ const LoginPage = () => {
 
             if (JWTAuthToken && isRememberMe) {
               localStorage.setItem('token', JWTAuthToken);
-              localStorage.setItem('userFirstName', firstName);
-              localStorage.setItem('userLastName', lastName);
+              // localStorage.setItem('userFirstName', firstName);
+              // localStorage.setItem('userLastName', lastName);
               dispatch(SET_TOKEN(localStorage.getItem('token')));
-            } else if (JWTAuthToken && !isRememberMe) {
-              sessionStorage.setItem('token', JWTAuthToken);
-              sessionStorage.setItem('userFirstName', firstName);
-              sessionStorage.setItem('userLastName', lastName);
-              dispatch(SET_TOKEN(sessionStorage.getItem('token')));
+            } else {
+              dispatch(SET_TOKEN(JWTAuthToken));
             }
 
             dispatch(SET_FIRST_NAME(firstName));

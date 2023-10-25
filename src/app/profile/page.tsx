@@ -70,20 +70,6 @@ const UserProfilePage = () => {
     }
   }, [token]);
 
-  useEffect(() => {
-    const storedFirstName =
-      localStorage.getItem('userFirstName') ||
-      sessionStorage.getItem('userFirstName');
-    const storedLastName =
-      localStorage.getItem('userLastName') ||
-      sessionStorage.getItem('userLastName');
-
-    if (storedFirstName && storedLastName) {
-      dispatch(SET_FIRST_NAME(storedFirstName));
-      dispatch(SET_LAST_NAME(storedLastName));
-    }
-  }, [dispatch]);
-
   return (
     <>
       <main className={`${stylesLogin.main} ${stylesLogin.bgDark}`}>

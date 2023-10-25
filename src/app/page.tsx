@@ -5,15 +5,6 @@ import { useSelector } from 'react-redux';
 import styles from './page.module.css';
 
 export default function Home() {
-  const { token } = useSelector((state: any) => state.login);
-  console.log(
-    'LOCAL STORAGE',
-    localStorage,
-    'SESSION STORAGE',
-    sessionStorage,
-    'TOKEN',
-    token
-  );
   return (
     <>
       <main>

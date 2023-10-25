@@ -16,6 +16,7 @@ import {
   SET_LAST_NAME,
 } from '@/app/GlobalRedux/Features/User/userSlice';
 import Link from 'next/link';
+import { getUserProfile } from '@/services/apiService';
 
 export const NavBar = () => {
   const { firstName } = useSelector((state: any) => state.user);
@@ -27,11 +28,8 @@ export const NavBar = () => {
   const handleLogout = (e: any) => {
     e.preventDefault();
     localStorage.removeItem('token');
-    sessionStorage.removeItem('token');
     localStorage.removeItem('userFirstName');
-    sessionStorage.removeItem('userFirstName');
     localStorage.removeItem('userLastName');
-    sessionStorage.removeItem('userLastName');
     dispatch(SET_TOKEN(''));
     dispatch(SET_PASSWORD(''));
     dispatch(SET_EMAIL(''));
@@ -42,14 +40,24 @@ export const NavBar = () => {
   };
 
   useEffect(() => {
-    const storedFirstName =
-      localStorage.getItem('userFirstName') ||
-      sessionStorage.getItem('userFirstName');
-
-    if (storedFirstName) {
-      dispatch(SET_FIRST_NAME(storedFirstName));
+    if (token) {
+      const callUserProfile = async () => {
+        try {
+          const res = await getUserProfile(token);
+          if (res?.status === 200) {
+            const { firstName, lastName } = res?.data.body;
+            dispatch(SET_FIRST_NAME(firstName));
+            dispatch(SET_LAST_NAME(lastName));
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      callUserProfile();
+    } else {
+      router.push('/');
     }
-  }, [dispatch]);
+  }, [token]);
 
   return (
     <nav className={styles.mainNav}>
